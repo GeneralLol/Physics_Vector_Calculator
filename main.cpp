@@ -12,6 +12,7 @@ void separation (string, const int, Vectors*);
 Vectors* calculate(string, const int, Vectors*); //Calculates the expression and returns a pointer to the resultant vector.
 Vectors* usr_input(string, int); //Prompts the user to input the information, and returns a pointer to the first vector.
 void print_vectors(Vectors*, int); //Function dedicated to printing the information of the vectors.
+void cleanup(const int, Vectors*); //Deallocates the objects.
 
 int main(){
 	string vectorExp;
@@ -33,6 +34,8 @@ int main(){
 	cout << "Result is: \n";
 	print_vectors (rstVec, 1);
 
+	cleanup(vecCount, vecs);
+	cleanup(1, rstVec);
 	return 1;
 
 }
@@ -194,8 +197,8 @@ Vectors* usr_input(string exp, int vecCount){
 	Vectors* vecAddr = new Vectors[vecCount];
 	Vectors* vecAddrRef = vecAddr; //Reference to the first object.
 	//cache for the vector info.
-	float mag = 0;
-	float dir = 0;
+	double mag = 0;
+	double dir = 0;
 	for (char i: exp){
 		if (isalpha(i)){
 			//if i is a letter, it is a vector.
@@ -228,4 +231,9 @@ void print_vectors(Vectors* vecPtr, int vecCount){
 				<< "Direction: "   << i->dir  << "\n";
 		cout << "\n";
 	}
+}
+
+//cleanup: cleans up the dynamic allocation.
+void cleanup(const int vecCount, Vectors* v){
+	delete[] v;
 }

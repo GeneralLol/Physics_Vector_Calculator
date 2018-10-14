@@ -11,16 +11,16 @@
 class Vectors{
 public:
 
-	float mag;  //magnitude
-	float dir;  //direction (degrees)
-	float coef; //coefficient
+	double mag;  //magnitude
+	double dir;  //direction (degrees)
+	double coef; //coefficient
 	char name;
 
 	const double PI = 3.14159265358979323846;
 
 	Vectors();
 	Vectors(char);
-	Vectors(float, float);
+	Vectors(double, double);
 
 	Vectors operator = (Vectors);
 	Vectors operator + (Vectors);
@@ -33,8 +33,8 @@ public:
 	Vectors operator /=(double);
 	double  quad_id (double, double); //Identifies the quadrant and spits out the offset angle.
 
-	float dx ();
-	float dy ();
+	double dx ();
+	double dy ();
 };
 
 //Checks the quadrant that the vector is in and helps fixing the angles.

@@ -26,7 +26,7 @@ Vectors::Vectors(char name){
 	this->name= name;
 }
 //Alters magnitude and direction according to the input.
-Vectors::Vectors(float mag_in, float dir_in){
+Vectors::Vectors(double mag_in, double dir_in){
 	this->mag = mag_in;
 	this->dir = dir_in;
 	this->coef= 1;
@@ -35,13 +35,13 @@ Vectors::Vectors(float mag_in, float dir_in){
 
 //Delta x and delta y calculated from the formulas.
 //trigs use radians so they need to be converted.
-float Vectors::dx(){
-	float deltax = this->mag * cos(this->dir / 180 * PI);
+double Vectors::dx(){
+	double deltax = this->mag * cos(this->dir / 180 * PI);
 	return deltax;
 }
 
-float Vectors::dy(){
-	float deltay = this->mag * sin(this->dir / 180 * PI);
+double Vectors::dy(){
+	double deltay = this->mag * sin(this->dir / 180 * PI);
 	return deltay;
 }
 
@@ -57,12 +57,12 @@ Vectors Vectors::operator = (Vectors v){
 Vectors Vectors::operator + (Vectors v){
 	//+ overloaded to calculate the resultant vector: deltax and deltay for horizontal and vertical
 	//shift and resultant magnitude is calculated through pythag and direction through arctan.
-	float deltax = this->dx() + v.dx();
-	float deltay = this->dy() + v.dy();
-	float dir = 0;
-	float quad = quad_id(deltax, deltay); //Fetches the offset of the resultant vector
+	double deltax = this->dx() + v.dx();
+	double deltay = this->dy() + v.dy();
+	double dir = 0;
+	double quad = quad_id(deltax, deltay); //Fetches the offset of the resultant vector
 
-	float mag = sqrt(pow(deltax, 2) + pow(deltay, 2));
+	double mag = sqrt(pow(deltax, 2) + pow(deltay, 2));
 	//4 different inverse functions because of the range limitations of inverse trig.
 	if (quad == 0){
 		//1st quad, asin
@@ -90,12 +90,12 @@ Vectors Vectors::operator +=(Vectors v){
 }
 
 Vectors Vectors::operator - (Vectors v){
-	float deltax = this->dx() - v.dx();
-	float deltay = this->dy() - v.dy();
-	float dir = 0;
-	float quad = quad_id(deltax, deltay);
+	double deltax = this->dx() - v.dx();
+	double deltay = this->dy() - v.dy();
+	double dir = 0;
+	double quad = quad_id(deltax, deltay);
 
-	float mag = sqrt(pow(deltax, 2) + pow(deltay, 2));
+	double mag = sqrt(pow(deltax, 2) + pow(deltay, 2));
 	//4 different inverse functions because of the range limitations of inverse trig.
 	if (quad == 0){
 		//1st quad, asin
@@ -122,8 +122,8 @@ Vectors Vectors::operator -=(Vectors v){
 }
 
 Vectors Vectors::operator * (double mult){
-	float mag = this->mag * mult;
-	float dir = this->dir;
+	double mag = this->mag * mult;
+	double dir = this->dir;
 
 	Vectors rst_vector(mag, dir);
 	return rst_vector;
@@ -137,8 +137,8 @@ Vectors Vectors::operator *=(double mult){
 }
 
 Vectors Vectors::operator / (double div){
-	float mag = this->mag * div;
-	float dir = this->dir;
+	double mag = this->mag * div;
+	double dir = this->dir;
 
 	Vectors rst_vector(mag, dir);
 	return rst_vector;
@@ -169,6 +169,3 @@ double Vectors::quad_id (double dx, double dy){
 	throw 0;
 	return 0;
 }
-
-
-
