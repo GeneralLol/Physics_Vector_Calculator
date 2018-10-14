@@ -11,12 +11,15 @@
 class Vectors{
 public:
 
-	float mag;
-	float dir;
+	float mag;  //magnitude
+	float dir;  //direction (degrees)
+	float coef; //coefficient
+	char name;
 
 	const double PI = 3.14159265358979323846;
 
 	Vectors();
+	Vectors(char);
 	Vectors(float, float);
 
 	Vectors operator = (Vectors);

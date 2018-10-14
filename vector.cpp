@@ -6,6 +6,7 @@
  */
 
 #include "vector.h"
+#include <cstdlib>
 #include <iostream>
 #include <cmath>
 
@@ -13,11 +14,23 @@
 Vectors::Vectors(){
 	this->mag = 0;
 	this->dir = 0;
+	this->coef= 1;
+	this->name= ' ';
+}
+
+//Set name.
+Vectors::Vectors(char name){
+	this->mag = 0;
+	this->dir = 0;
+	this->coef= 1;
+	this->name= name;
 }
 //Alters magnitude and direction according to the input.
 Vectors::Vectors(float mag_in, float dir_in){
 	this->mag = mag_in;
 	this->dir = dir_in;
+	this->coef= 1;
+	this->name = ' ';
 }
 
 //Delta x and delta y calculated from the formulas.
@@ -56,13 +69,13 @@ Vectors Vectors::operator + (Vectors v){
 		dir = asin(deltay / mag) * 180 / PI + quad;
 	}else if (quad == 90){
 		//2nd quad, asin
-		dir = asin(deltay / mag) * 180 / PI + quad;
+		dir = 180 - asin(deltay / mag) * 180 / PI;
 	}else if (quad == 180){
 		//3rd quad, atan
 		dir = atan(deltay / deltay) * 180 / PI + quad;
 	}else if (quad == 270){
 		//4th quad, acos
-		dir = acos(deltax / mag) * 180 / PI + quad;
+		dir = 360 - acos(deltax / mag) * 180 / PI;
 	}
 
 	//Makes a new vector object with calculated magnitude and direction to be returned.
@@ -71,8 +84,8 @@ Vectors Vectors::operator + (Vectors v){
 }
 
 Vectors Vectors::operator +=(Vectors v){
-	Vectors rst_vector;
-	rst_vector = *this + v;
+	Vectors rst_vector = *this + v;
+	*this = rst_vector;
 	return rst_vector;
 }
 
@@ -103,8 +116,8 @@ Vectors Vectors::operator - (Vectors v){
 }
 
 Vectors Vectors::operator -=(Vectors v){
-	Vectors rst_vector;
-	rst_vector = *this - v;
+	Vectors rst_vector = *this - v;;
+	*this = rst_vector;
 	return rst_vector;
 }
 
@@ -119,7 +132,7 @@ Vectors Vectors::operator * (double mult){
 Vectors Vectors::operator *=(double mult){
 
 	Vectors rst_vector = *this * mult;
-
+	*this = rst_vector;
 	return rst_vector;
 }
 
@@ -134,6 +147,7 @@ Vectors Vectors::operator / (double div){
 Vectors Vectors::operator /=(double div){
 
 	Vectors rst_vector = *this / div;
+	*this = rst_vector;
 	return rst_vector;
 }
 
